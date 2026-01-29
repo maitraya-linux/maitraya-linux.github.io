@@ -1,0 +1,4 @@
+baseURL = 'https://maitraya-linux.github.io/'
+languageCode = 'en-us'
+title = 'tinyblog'
+theme = "hugo-bearcub"
