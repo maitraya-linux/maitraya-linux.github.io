@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{%- block main -%}
+  <main>
+    {{ section.content | safe }}
+    <ul class="blog-posts">
+      {%- for page in section.pages %}
+        <li>
+          <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+          {% if page.summary %}
+            <p>{{ page.summary | safe }}</p>
+          {% else %}
+             <p>{{ page.content | striptags | truncate(length=280) | safe }}</p>
+          {% endif %}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </main>
+{% endblock %}

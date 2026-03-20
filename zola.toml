@@ -1,0 +1,26 @@
+base_url = "https://maitraya-linux.github.io"
+
+title = "fishy cabinet"
+description = "[n., bn]: a cabinet of whispers [n, en]: a cabinet which smells of the sea"
+
+generate_feeds = true
+compile_sass = false
+build_search_index = false
+
+[markdown]
+
+[extra]
+webserver_sends_csp_headers = true
+
+[extra.table_of_contents]
+show = true
+max_level = 2
+visible_on_load = true
+
+[[extra.main_menu]]
+name = "Blog"
+url = "@/_index.md"
+
+[[extra.main_menu]]
+name = "About"
+url = "@/about/_index.md"
