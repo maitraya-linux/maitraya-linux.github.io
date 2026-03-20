@@ -1,0 +1,7 @@
+# Zola/Hugo build artifacts
+public/
+.hugo_build.lock
+
+# OS files
+.DS_Store
+Thumbs.db

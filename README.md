@@ -1,1 +1,0 @@
-# maitraya-linux.github.io
