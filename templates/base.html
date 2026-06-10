@@ -1,34 +1,74 @@
 <!DOCTYPE html>
-<html lang="{{ lang | default(value="en-US" ) }}">
+<html lang="{{ lang | default(value="en" ) }}">
 <head>
-  {%- if config.webserver_sends_csp_headers %}
-  {%- include "security_tags.html" ignore missing %}
-  {%- endif %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% include "favicon.html" ignore missing -%}
+  <title>{% block title %}{{ config.title }}{% endblock %}</title>
+  
+  {% if config.description %}<meta name="description" content="{{ config.description }}">{% endif %}
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Betania+Patmos&display=swap" rel="stylesheet">
-  <title>{%- block title %}{{ config.title }}{%- endblock %}</title>
-  {% include "seo_tags.html" ignore missing -%}
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  {%- if config.generate_feeds %}
-  {% block rss -%}
-  {%- for feed_filename in config.feed_filenames %}
-  <link rel="alternate" type={% if feed_filename == "atom.xml" %}"application/atom+xml"{% else %}"application/rss+xml"{% endif %} title="{{ config.title }}" href="{{ get_url(path=feed_filename) | safe }}">
-  {%- endfor -%}
-  {%- endblock -%}
-  {%- endif %}
-  <style>
-  {% include "style.css.html" ignore missing %}
-  </style>
-  {%- include "custom_head.html" ignore missing %}
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ get_url(path="style.css") | safe }}">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <script>
+    const storageKey = 'theme-preference';
+
+    const getColorPreference = () => {
+      if (localStorage.getItem(storageKey))
+        return localStorage.getItem(storageKey);
+      else
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+    };
+
+    const setPreference = () => {
+      localStorage.setItem(storageKey, theme.value);
+      reflectPreference();
+    };
+
+    const reflectPreference = () => {
+      document.documentElement.setAttribute('data-theme', theme.value);
+      const toggle = document.querySelector('#theme-toggle');
+      if (toggle) {
+        toggle.innerText = theme.value === 'light' ? 'dark' : 'light';
+        toggle.setAttribute('aria-label', theme.value);
+      }
+    };
+
+    const theme = {
+      value: getColorPreference(),
+    };
+
+    reflectPreference();
+
+    window.onload = () => {
+      reflectPreference();
+      document.querySelector('#theme-toggle').addEventListener('click', () => {
+        theme.value = theme.value === 'light' ? 'dark' : 'light';
+        setPreference();
+      });
+    };
+
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(({matches:isDark}) => {
+      theme.value = isDark ? 'dark' : 'light';
+      setPreference();
+    });
+  </script>
 </head>
 <body>
-  {% include "header.html" ignore missing %}
-  {%- block main -%}{%- endblock -%}
-  {%- include "footer.html" ignore missing -%}
-  {%- include "custom_body.html" ignore missing -%}
+  {% include "header.html" %}
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+  {% include "footer.html" %}
 </body>
 </html>

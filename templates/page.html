@@ -1,19 +1,11 @@
-{% import "macros.html" as macros %}
 {% extends "base.html" %}
 
 {% block title %}{{ page.title }} | {{ super() }}{% endblock %}
 
 {% block main %}
-  {%- if not page.extra.menu -%}
+  <article>
     <h1>{{ page.title }}</h1>
-  {%- endif %}
-  {%- if config.extra.table_of_contents.show and not page.extra.hide_table_of_contents and page.toc %}
-    <details {% if config.extra.table_of_contents.visible_on_load %}open{% endif %}>
-      <summary>Table of Contents</summary>
-      {{- macros::table_of_contents(toc=page.toc, max_level=config.extra.table_of_contents.max_level) | indent() | safe() }}
-    </details>
-  {%- endif %}
-  <main>
+    {% if page.date %}<p class="date">{{ page.date | date(format="%Y-%m-%d") }}</p>{% endif %}
     {{ page.content | safe }}
-  </main>
+  </article>
 {% endblock %}

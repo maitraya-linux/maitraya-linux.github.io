@@ -1,10 +1,10 @@
 +++
-title = "Test zola"
-weight = 1
+title = "hello world"
+date = 2026-06-10
 +++
 
-#Hello
+Hey world, a blog has been born. 
 
-Hey, this is just a test page.
+The blog has already eaten some fish cooked with mustard.
 
-This is another line in the test page. Add another line.
+It will have more to say later.

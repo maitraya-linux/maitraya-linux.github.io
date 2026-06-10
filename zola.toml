@@ -5,7 +5,7 @@ description = "[n., bn]: a cabinet of whispers [n, en]: a cabinet which smells o
 
 generate_feeds = true
 compile_sass = false
-build_search_index = false
+build_search_index = true
 
 [markdown]
 
@@ -18,9 +18,21 @@ max_level = 2
 visible_on_load = true
 
 [[extra.main_menu]]
-name = "Blog"
+name = "posts"
 url = "@/_index.md"
 
 [[extra.main_menu]]
-name = "About"
+name = "search"
+url = "@/search/_index.md"
+
+[[extra.main_menu]]
+name = "essentials"
+url = "@/essentials/_index.md"
+
+[[extra.main_menu]]
+name = "de"
+url = "@/german/_index.md"
+
+[[extra.main_menu]]
+name = "about"
 url = "@/about/_index.md"

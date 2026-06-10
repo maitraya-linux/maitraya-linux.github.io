@@ -1,9 +1,6 @@
 +++
 title = "Blog"
-sort_by = "weight"
-template = "section.html"
+sort_by = "date"
+paginate_by = 20
+template = "index.html"
 +++
-
-# Welcome to my fishy cabinet.
-
-This is where I post my thoughts.

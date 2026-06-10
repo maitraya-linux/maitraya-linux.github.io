@@ -1,19 +1,38 @@
 {% extends "base.html" %}
 
-{%- block main -%}
+{% block main %}
   <main>
     {{ section.content | safe }}
     <ul class="blog-posts">
-      {%- for page in section.pages %}
-        <li>
-          <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
-          {% if page.summary %}
-            <p>{{ page.summary | safe }}</p>
-          {% else %}
-             <p>{{ page.content | striptags | truncate(length=280) | safe }}</p>
-          {% endif %}
-        </li>
-      {%- endfor -%}
+      {% if section.paginator %}
+        {% for page in section.paginator.pages %}
+          <li>
+            <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+            {% if page.date %}<span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>{% endif %}
+          </li>
+        {% endfor %}
+      {% else %}
+        {% for page in section.pages %}
+          <li>
+            <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+            {% if page.date %}<span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>{% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
     </ul>
+
+    {% if section.paginator %}
+      {% if section.paginator.previous or section.paginator.next %}
+        <nav class="pagination">
+          {% if section.paginator.previous %}
+            <a href="{{ section.paginator.previous }}">&laquo; Previous</a>
+          {% endif %}
+          <span>Page {{ section.paginator.current_index }} of {{ section.paginator.number_pagers }}</span>
+          {% if section.paginator.next %}
+            <a href="{{ section.paginator.next }}">Next &raquo;</a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% endif %}
   </main>
 {% endblock %}

@@ -4,8 +4,13 @@ sort_by = "none"
 template = "section.html"
 +++
 
-# About Me
+## fishy cabinet
 
-This is a tiny blog which aims to be as bloat free as possible.
+<pre>
+[noun] a cabinet which a. smells of the sea
+                       b. is very bengali
+                       c. is *esoteric* 
+</pre>
 
-Welcome to my fishy cabinet. This is where I share my thoughts and projects.
+fishy cabinet
+

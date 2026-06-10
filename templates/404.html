@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}404{% endblock %}
+{% block title %}404 | {{ super() }}{% endblock %}
 
 {% block main %}
-  <h1>404</h1>
-  <h2>ʕノ•ᴥ•ʔノ ︵ ┻━┻</h2>
+  <div style="text-align: center; margin-top: 5rem;">
+    <h1>404</h1>
+    <p>page not found.</p>
+    <p><a href="{{ get_url(path="@/_index.md") }}">return to home</a></p>
+  </div>
 {% endblock %}

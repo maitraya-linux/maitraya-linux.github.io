@@ -2,6 +2,25 @@
 
 {% block main %}
   <main>
-    {{ section.content | safe }}
+    <ul class="blog-posts">
+      {% for page in paginator.pages %}
+        <li>
+          <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+          {% if page.date %}<span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if paginator.previous or paginator.next %}
+      <nav class="pagination">
+        {% if paginator.previous %}
+          <a href="{{ paginator.previous }}">&laquo; Previous</a>
+        {% endif %}
+        <span>Page {{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
+        {% if paginator.next %}
+          <a href="{{ paginator.next }}">Next &raquo;</a>
+        {% endif %}
+      </nav>
+    {% endif %}
   </main>
 {% endblock %}

@@ -1,8 +1,23 @@
 <header>
-  <a href="{{ get_url(path="@/_index.md") }}" class="title">
-    <h1>{{ config.title }}</h1>
-  </a>
-  <nav aria-label="Site">
-    {%- include "nav.html" %}
+  <div class="header-top">
+    <div class="header-left">
+      <a href="{{ get_url(path="@/_index.md") }}">
+        <h1>{{ config.title }}</h1>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        dark
+      </button>
+    </div>
+  </div>
+  <nav class="header-nav">
+    {% for item in config.extra.main_menu %}
+      {% if item.url is matching("https?://") %}
+        <a href="{{ item.url }}">{{ item.name }}</a>
+      {% else %}
+        <a href="{{ get_url(path=item.url) }}">{{ item.name }}</a>
+      {% endif %}
+    {% endfor %}
   </nav>
 </header>
